@@ -1,0 +1,22 @@
+digraph project
+{
+    "ZhengquanTouziJichu.ebk3" [color=green, style=filled, fillcolor=".7 .3 1.0"]
+    "ZhengquanTouziJichu.ebk3"->ebk3totxt;
+
+    ebk3totxt->"Zhangyue.iReader.EBK3.dll";
+    ebk3totxt->"ILSpyChinese2.1.0.1603.rar";
+    
+    "Zhangyue.iReader.EBK3.dll"->"C#";
+    "ILSpyChinese2.1.0.1603.rar"->"C#";
+
+    "C#" [color=green, style=filled, fillcolor="orange"]
+    "C#"->"origin_C#.code";
+    "C#"->"origin_structure.dot(png)";
+
+    "origin_C#.code"->"new_strcuture.dot(png)";
+    "origin_structure.dot(png)"->"new_strcuture.dot(png)";
+
+    "new_strcuture.dot(png)"->"convert.php";
+    
+    "convert.php" [color=yellow, style=filled, fillcolor="green"];
+}
