@@ -2,6 +2,7 @@ digraph project
 {
     "ZhengquanTouziJichu.ebk3" [color=green, style=filled, fillcolor=".7 .3 1.0"];
     "ZhengquanTouziJichu.ebk3"->ebk3totxt;
+    "ZhengquanTouziJichu.ebk3"->"ZhengquanTouziJichu.txt" [style=dotted];
 
     ebk3totxt->"Zhangyue.iReader.EBK3.dll";
     ebk3totxt->"ILSpyChinese2.1.0.1603.rar";
@@ -33,4 +34,10 @@ digraph project
     "ebk3totxt.cpp" [color=blue, style=dashed];
     "ebk3totxt.py" [color=blue, style=dashed];
     "ebk3totxt.rb" [color=blue, style=dashed];
+
+    "ebk3totxt.php"->"ZhengquanTouziJichu.txt" [style=dotted];
+    "ebk3totxt.c"->"ZhengquanTouziJichu.txt" [style=dotted];
+    "ebk3totxt.cpp"->"ZhengquanTouziJichu.txt" [style=dotted];
+    "ebk3totxt.py"->"ZhengquanTouziJichu.txt" [style=dotted];
+    "ebk3totxt.rb"->"ZhengquanTouziJichu.txt" [style=dotted];
 }
