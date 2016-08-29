@@ -1,0 +1,1797 @@
+//Zhangyue.iReader.EBK3
+
+01.blockfilelistStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct blockfilelistStruct
+    {
+        public uint file_name_length;
+        public uint file_offset;
+        public uint file_src_length;
+        public uint file_compress_length;
+    }
+}
+
+
+02.blockfileStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct blockfileStruct
+    {
+        public uint file_count;
+        public uint file_header_length;
+    }     
+}
+
+
+03.blockinfoArray
+using System;
+using System.Text;
+namespace Zhangyue.iReader.EBK3
+{
+    public class blockinfoArray
+    {
+        public object[] infoblockinfoarray(blockinfoModel infomodel, int count)
+        {
+            object[] array = new object[count];
+            blockinfobyteModel blockinfobyteModel = new blockinfobyteModel();
+            blockinfobyteModel.bytemin_version = BitConverter.GetBytes(infomodel.min_version1);
+            blockinfobyteModel.bytemin_tip = Encoding.Unicode.GetBytes(infomodel.min_tip2);
+            blockinfobyteModel.bytecompress_type = BitConverter.GetBytes(infomodel.compress_type3);
+            blockinfobyteModel.bytecompress_block_size = BitConverter.GetBytes(infomodel.compress_block_size4);
+            blockinfobyteModel.bytedatatype = BitConverter.GetBytes(infomodel.datatype5);
+            blockinfobyteModel.bytelocale = BitConverter.GetBytes(infomodel.locale6);
+            blockinfobyteModel.byteencoding = BitConverter.GetBytes(infomodel.encoding7);
+            blockinfobyteModel.bytechapter_index = BitConverter.GetBytes(infomodel.chapter_index8);
+            blockinfobyteModel.bytechapter_level = BitConverter.GetBytes(infomodel.chapter_level9);
+            blockinfobyteModel.bytechapter_name = Encoding.Unicode.GetBytes(infomodel.chapter_name10);
+            blockinfobyteModel.bytefile_list_offset11 = BitConverter.GetBytes(infomodel.file_list_offset11);
+            blockinfobyteModel.bytechapter_content_decompress_lengt12 = BitConverter.GetBytes(infomodel.chapter_content_decompress_length12);
+            blockinfobyteModel.bytechapter_file_size13 = BitConverter.GetBytes(infomodel.chapter_file_size13);
+            array[0] = blockinfobyteModel.bytemin_version;
+            array[1] = blockinfobyteModel.bytemin_tip;
+            array[2] = blockinfobyteModel.bytecompress_type;
+            array[3] = blockinfobyteModel.bytecompress_block_size;
+            array[4] = blockinfobyteModel.bytedatatype;
+            array[5] = blockinfobyteModel.bytelocale;
+            array[6] = blockinfobyteModel.byteencoding;
+            array[7] = blockinfobyteModel.bytechapter_index;
+            array[8] = blockinfobyteModel.bytechapter_level;
+            array[9] = blockinfobyteModel.bytechapter_name;
+            array[10] = blockinfobyteModel.bytefile_list_offset11;
+            array[11] = blockinfobyteModel.bytechapter_content_decompress_lengt12;
+            array[12] = blockinfobyteModel.bytechapter_file_size13;
+            return array;
+        }
+    }
+}
+
+
+04.blockinfobyteModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class blockinfobyteModel
+    {
+        public byte[] bytemin_version = new byte[4];
+        public byte[] bytemin_tip;
+        public byte[] bytecompress_type = new byte[4];
+        public byte[] bytecompress_block_size = new byte[4];
+        public byte[] bytedatatype = new byte[4];
+        public byte[] bytelocale = new byte[4];
+        public byte[] byteencoding = new byte[4];
+        public byte[] bytechapter_index = new byte[4];
+        public byte[] bytechapter_level = new byte[2];
+        public byte[] bytechapter_name;
+        public byte[] bytefile_list_offset11 = new byte[4];
+        public byte[] bytechapter_content_decompress_lengt12 = new byte[4];
+        public byte[] bytechapter_file_size13 = new byte[4];
+    }
+}
+
+
+05.blockinfoModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class blockinfoModel
+    {
+        public uint min_version1;
+        public string min_tip2;
+        public uint compress_type3;
+        public uint compress_block_size4;
+        public uint datatype5;
+        public uint locale6;
+        public uint encoding7;
+        public uint chapter_index8;
+        public ushort chapter_level9;
+        public string chapter_name10;
+        public uint file_list_offset11;
+        public uint chapter_content_decompress_length12;
+        public uint chapter_file_size13;
+    }
+}
+
+
+06.blockStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct blockStruct
+    {
+        public uint header_key;
+        public uint header_length;
+        public uint decode_key;
+    }
+}
+
+
+07.BookInfo
+using System;
+using System.Collections.Generic;
+namespace Zhangyue.iReader.EBK3
+{
+    public class BookInfo
+    {
+        private List<BookItems> _m_chapterlist = new List<BookItems>();
+        private string _text = "";
+        private byte[] _pic;
+        private string _bookName;
+        
+        public List<BookItems> ChaterList
+        {
+            get
+            {
+                return this._m_chapterlist;
+            }
+            set
+            {
+                this._m_chapterlist = value;
+            }
+        }
+
+        public string Text
+        {
+            get
+            {
+                return this._text;
+            }
+            set
+            {
+                this._text = value;
+            }
+        }
+       
+        public byte[] Pic
+        {
+            get
+            {
+                return this._pic;
+            }
+            set
+            {
+                this._pic = value;
+            }
+        }
+       
+        public string BookName
+        {
+            get
+            {
+                return this._bookName;
+            }
+            set
+            {
+                this._bookName = value;
+            }
+        }
+}
+
+
+08.BookItems
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class BookItems
+    {
+        private string _name = "";
+        
+        private int _index;
+        private int _length;
+        
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                this._name = value;
+            }
+        }
+        
+        public int Index
+        {
+            get
+            {
+                return this._index;
+            }
+            set
+            {
+                this._index = value;
+            }
+        }
+        
+        public int Length
+        {
+            get
+            {
+                return this._length;
+            }
+            set
+            {
+                this._length = value;
+            }
+        }
+        
+        public BookItems(string myname, int myindex, int mylength)
+        {
+            this._name = myname;
+            this._index = myindex;
+            this._length = mylength;
+        }
+    }
+}
+
+
+09.byteinfo
+using System;
+using System.Collections.Generic;
+namespace Zhangyue.iReader.EBK3
+{
+    public class byteinfo
+    {
+        public byte[] compressysdate;
+        public byte[] chaptertxtbyteresult;
+        public List<m_compressList> compressblocksizelist = new List<m_compressList>();
+    }
+}
+
+
+10.ByteToStructEbk3
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class ByteToStructEbk3
+    {
+        public ChapterListStruct GetBlockFileList(byte[] buffs)
+        {
+            ChapterListStruct result = default(ChapterListStruct);
+            int num = 0;
+            result.chapter_name_length7 = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_index1 = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_level2 = (ushort)ByteToStructEbk3.GetInt16(2, ref num, buffs);
+            result.chapter_data_type3 = (ushort)ByteToStructEbk3.GetInt16(2, ref num, buffs);
+            result.chapter_data_block_offset4 = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_content_decompresss_offset5 = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_content_decompress_length6 = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            return result;
+        }
+        
+        public EBK3HeadStruct GetHeadStruct(byte[] buffs)
+        {
+            EBK3HeadStruct result = default(EBK3HeadStruct);
+            int num = 0;
+            result.identifier = ByteToStructEbk3.GetBytes(4, ref num, buffs);
+            result.header_key = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.header_length = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.decode_key = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            return result;
+        }
+       
+        public DynDataStruct GetDynDataStruct(byte[] buffs)
+        {
+            DynDataStruct result = default(DynDataStruct);
+            int num = 0;
+            result.dyn_data_length = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.book_id = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_list_offset = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_list_length = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            return result;
+        }
+        
+        public blockStruct GetBlockStruct(byte[] buffs)
+        {
+            blockStruct result = default(blockStruct);
+            int num = 0;
+            result.header_key = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.header_length = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.decode_key = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            return result;
+        }
+
+        public ChapterHeadModelStruct GetChapterHeadModelStruct(byte[] buffs)
+        {
+            ChapterHeadModelStruct result = default(ChapterHeadModelStruct);
+            int num = 0;
+            result.chapter_count = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            result.chapter_name_header_length = (uint)ByteToStructEbk3.GetInt32(4, ref num, buffs);
+            return result;
+        }
+
+        private static int GetInt32(int length, ref int offset, byte[] buff)
+        {
+            byte[] array = new byte[length];
+            Array.Copy(buff, offset, array, 0, length);
+            offset += length;
+            return BitConverter.ToInt32(array, 0);
+        }
+
+        private static int GetInt16(int length, ref int offset, byte[] buff)
+        {
+            byte[] array = new byte[length];
+            Array.Copy(buff, offset, array, 0, length);
+            offset += length;
+            return (int)BitConverter.ToInt16(array, 0);
+        }
+
+        private static byte[] GetBytes(int length, ref int offset, byte[] buff)
+        {
+            byte[] array = new byte[length];
+            Array.Copy(buff, offset, array, 0, length);
+            offset += length;
+            return array;
+        }
+    }
+}
+
+
+11.ChapterHeadModelStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct ChapterHeadModelStruct
+    {
+        public uint chapter_count;
+        public uint chapter_name_header_length;
+    }
+}
+
+
+12.chapterlist
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class chapterlist
+    {
+        public int _offset;
+        public int _lenth;
+        public string _chaptername;
+        
+        public chapterlist(int offset, int lenth, string chaptername)
+        {
+            this._offset = offset;
+            this._lenth = lenth;
+            this._chaptername = chaptername;
+        }
+    }
+}
+
+
+13.ChapterListByteModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class ChapterListByteModel
+    {
+        public byte[] chapter_index1 = new byte[4];
+        public byte[] chapter_level2 = new byte[2];
+        public byte[] chapter_data_type3 = new byte[2];
+        public byte[] chapter_data_block_offset4 = new byte[4];
+        public byte[] chapter_content_decompresss_offset5 = new byte[4];
+        public byte[] chapter_content_decompress_length6 = new byte[4];
+        public byte[] chapter_name_length7 = new byte[4];
+        public byte[] chapter_name_data8;
+    }
+}
+
+
+14.ChapterListModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class ChapterListModel
+    {
+        public uint chapter_name_header_length = 24u;
+        public uint chaptermodellenth = 8u;
+        public uint chapter_index1;
+        public ushort chapter_level2;
+        public ushort chapter_data_type3;
+        public uint chapter_data_block_offset4;
+        public uint chapter_content_decompresss_offset5;
+        public uint chapter_content_decompress_length6;
+        public uint chapter_name_length7;
+        public string chapter_name_data8;
+    }
+}
+
+
+15.ChapterListStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct ChapterListStruct
+    {
+        public uint chapter_name_length7;
+        public uint chapter_index1;
+        public ushort chapter_level2;
+        public ushort chapter_data_type3;
+        public uint chapter_data_block_offset4;
+        public uint chapter_content_decompresss_offset5;
+        public uint chapter_content_decompress_length6;
+        public string chapter_name_data8;
+    }
+}
+
+
+16.DynDataStruct
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct DynDataStruct
+    {
+        public uint dyn_data_length;
+        public uint book_id;
+        public uint chapter_list_offset;
+        public uint chapter_list_length;
+    }
+}
+
+
+17.Ebk3_Data
+using System;
+using System.Runtime.CompilerServices;
+namespace Zhangyue.iReader.EBK3
+{
+    public class Ebk3_Data
+    {
+        private static long holdrand;
+        private static int[] pbk_sys_crc16_ccitt_table;
+        
+        private void pbk_data_set(int seed)
+        {
+            Ebk3_Data.holdrand = (long)seed;
+        }
+
+        private int pbk_data_n()
+        {
+            return (int)((Ebk3_Data.holdrand = Ebk3_Data.holdrand * 214013L + 2531011L) >> 16 & 32767L);
+        }
+   
+        public byte[] pbk_sys_data_encode(byte[] data, int key)
+        {
+            int num = data.Length;
+            if (key == 0)
+            {
+                return null;
+            }
+
+            this.pbk_data_set(key);
+            for (int i = 0; i < num; i++)
+            {
+                byte b = data[i];
+                byte b2 = b & 224;
+                byte b3 = b & 28;
+                byte b4 = b & 3;
+                byte b5 = (byte)this.pbk_data_n();
+                b = (byte)((int)b4 << 6 | (int)b3 << 1 | b2 >> 5);
+                b = ~b;
+                data[i] = (b ^ b5);
+            }
+            
+            return data;
+        }
+
+        public byte[] pbk_sys_data_decode(byte[] data, int key)
+        {
+            int num = data.Length;
+            if (key == 0)
+            {
+                return null;
+            }
+
+            this.pbk_data_set(key);
+            for (int i = 0; i < num; i++)
+            {
+                byte b = data[i];
+                byte b2 = (byte)this.pbk_data_n();
+                b ^= b2;
+                b = ~b;
+                byte b3 = b & 192;
+                byte b4 = b & 56;
+                byte b5 = b & 7;
+                b = (byte)((int)b5 << 5 | b4 >> 1 | b3 >> 6);
+                data[i] = b;
+            }
+
+            return data;
+        }
+
+        public int pbk_sys_get_crc16_value(byte[] data)
+        {
+            int num = 65535;
+            int num2 = 0;
+
+            for (int i = data.Length; i > 0; i--)
+            {
+                num = (num >> 8 ^ Ebk3_Data.pbk_sys_crc16_ccitt_table[(num ^ (int)data[num2++]) & 255]);
+            }
+
+            num ^= 65535;
+            return num & 65535;
+        }
+        
+        static Ebk3_Data()
+        {
+            // Note: this type is marked as 'beforefieldinit'.
+            int[] expr_0A = new int[256];
+            RuntimeHelpers.InitializeArray(expr_0A, fieldof(<PrivateImplementationDetails>{7026220E-C31D-42CE-8A32-B627236520EC}.$$method0x6000080-1).FieldHandle);
+            Ebk3_Data.pbk_sys_crc16_ccitt_table = expr_0A;
+        }
+    }
+}
+
+
+18.EBK3HeadByteModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class EBK3HeadByteModel
+    {
+        public byte[] bytemin_version1 = new byte[4];
+        public byte[] byteunique_identifier2;
+        public byte[] bytebook_file_type3 = new byte[4];
+        public byte[] bytechapter_list_offset4 = new byte[4];
+        public byte[] bytechapter_dyn_info_offset5 = new byte[4];
+        public byte[] bytecover_data_offset6 = new byte[4];
+        public byte[] bytecreator7 = new byte[4];
+        public byte[] bytecreate_timer8;
+        public byte[] bytename9;
+        public byte[] byteauthor10;
+        public byte[] bytesubject11;
+        public byte[] bytepublisher12;
+        public byte[] byteisbn13;
+        public byte[] bytefile_size14;
+        public byte[] byterevise_version16;
+    }
+}
+
+
+19.EBK3HeadInfoModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class EBK3HeadInfoModel
+    {
+        public uint modellenth = 15u;
+        public uint min_version1;
+        public string unique_identifier2;
+        public uint book_file_type3;
+        public uint chapter_list_offset4;
+        public uint chapter_dyn_info_offset5;
+        public uint cover_data_offset6;
+        public string creator7;
+        public string create_timer8;
+        public string name9;
+        public string author10;
+        public string subject11;
+        public string publisher12;
+        public string isbn13;
+        public uint file_size14;
+        public uint revise_version16;
+    }
+}
+
+
+20.EBK3HeadStruct
+using System;
+using System.Runtime.InteropServices;
+namespace Zhangyue.iReader.EBK3
+{
+    public struct EBK3HeadStruct
+    {
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public byte[] identifier;
+        public uint header_key;
+        public uint header_length;
+        public uint decode_key;
+    }
+}
+
+
+21.Ebk3Make
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class Ebk3Make
+    {
+        private Ebk3Make()
+        {
+        }
+
+        public static byte[] StrucTObytes(object obj)
+        {
+            return null;
+        }
+
+        public static object BytesToStruct(byte[] bytes, Type type)
+        {
+            return null;
+        }
+
+        public int ebk2makes(BookInfo bookinfo, byte[] txtData, int txtLenth, string fileFullName, int chpterstartindex, int chpterendindex, int flag)
+        {
+            return 1;
+        }
+    }
+}
+
+
+22.Ebk3Open
+private Ebk3_Data ebk3_data = new Ebk3_Data();
+
+private List<ChapterListModel> mChapterList;
+
+private byte[] mEBK3Buffer;
+
+private Stream mEBK3Stream;
+
+private StorageFolder storageFolder;
+
+
+private Ebk3_Data ebk3_data = new Ebk3_Data();
+public Ebk3Open()
+{
+}
+
+EBK3AppendChap(string, byte[], string):Task<int>
+
+public void EBK3Close()
+{
+    if (this.mEBK3Stream != null)
+    {
+        this.mEBK3Stream.Dispose();
+        this.mEBK3Stream = null;
+    }
+}
+
+public string EBK3GetChapter(int mChapterIndex)
+{
+    if (this.mEBK3Stream == null)
+    {
+        return null;
+    }
+
+    byte[] array = this.mEBK3Buffer;
+    new BookInfo();
+    string result = "";
+
+    if (mChapterIndex >= 0 && mChapterIndex < this.mChapterList.Count)
+    {
+        ChapterListModel chapterListModel = this.mChapterList[mChapterIndex];
+        if (chapterListModel.chapter_data_type3 == 0)
+        {
+            byte[] array2 = new byte[(long)array.Length - (long)((ulong)chapterListModel.chapter_data_block_offset4)];
+            Array.Copy(array, (int)chapterListModel.chapter_data_block_offset4, array2, 0, array2.Length);
+            result = this.Getchapter(array2, 0);
+        }
+        else
+        {
+            byte[] array3 = new byte[(long)array.Length - (long)((ulong)chapterListModel.chapter_data_block_offset4)];
+            Array.Copy(array, (int)chapterListModel.chapter_data_block_offset4, array3, 0, array3.Length);
+            result = this.GetOneChapter(array3, 1, mChapterIndex);
+        }
+    }
+
+    return result;
+}
+
+public List<ChapterListModel> EBK3GetChapterList()
+{
+    if (this.mEBK3Stream == null)
+    {
+        return null;
+    }
+
+    return this.mChapterList;
+}
+
+public async Task<int> EBK3Open(string filefullname, string bookFolder)
+{
+    int result;
+    try
+    {
+        this.storageFolder = ApplicationData.get_Current().get_LocalFolder();
+        this.storageFolder = await this.storageFolder.GetFolderAsync(bookFolder);
+        StorageFile windowsRuntimeFile = await this.storageFolder.GetFileAsync(filefullname);
+        Stream arg_203_0 = await windowsRuntimeFile.OpenStreamForReadAsync();
+        this.mEBK3Stream = arg_203_0;
+
+        using (arg_203_0)
+        {
+            this.mEBK3Buffer = new byte[(int)this.mEBK3Stream.Length];
+            this.mEBK3Stream.Read(this.mEBK3Buffer, 0, this.mEBK3Buffer.Length);
+        }
+
+        byte[] array = this.mEBK3Buffer;
+        EBK3HeadStruct eBK3HeadStruct = default(EBK3HeadStruct);
+        EBK3HeadInfoModel eBK3HeadInfoModel = new EBK3HeadInfoModel();
+        ChapterHeadModelStruct chapterHeadModelStruct = default(ChapterHeadModelStruct);
+        new blockinfoModel();
+        new ChapterListModel();
+        DynDataStruct dynDataStruct = default(DynDataStruct);
+        eBK3HeadStruct = new ByteToStructEbk3().GetHeadStruct(array);
+        int decode_key = (int)eBK3HeadStruct.decode_key;
+        byte[] array2 = new byte[eBK3HeadStruct.header_length];
+        Array.Copy(array, 0, array2, 0, array2.Length);
+        byte[] array3 = new byte[array2.Length - 16];
+        Array.Copy(array, 16, array3, 0, array3.Length);
+        eBK3HeadInfoModel = Ebk3Open.GetRecodeModel(this.ebk3_data.pbk_sys_data_decode(array3, decode_key), (int)eBK3HeadInfoModel.modellenth);
+        byte[] array4 = new byte[16];
+        Array.Copy(array, (int)eBK3HeadInfoModel.chapter_dyn_info_offset5, array4, 0, array4.Length);
+        dynDataStruct = new ByteToStructEbk3().GetDynDataStruct(array4);
+        byte[] array5 = new byte[dynDataStruct.chapter_list_length];
+        Array.Copy(array, (int)dynDataStruct.chapter_list_offset, array5, 0, array5.Length);
+        chapterHeadModelStruct = new ByteToStructEbk3().GetChapterHeadModelStruct(array5);
+        byte[] array6 = new byte[array5.Length - 8];
+        Array.Copy(array5, 8, array6, 0, array6.Length);
+        this.mChapterList = this.GetChapterList((int)chapterHeadModelStruct.chapter_count, (int)chapterHeadModelStruct.chapter_name_header_length, array6, decode_key);
+
+        if (this.mChapterList.Count == 0)
+        {
+            result = 0;
+        }
+        else
+        {
+            result = 1;
+        }
+    }
+
+    catch (Exception)
+    {
+        result = 0;
+    }
+
+    return result;
+}
+
+public async Task<int> EBK3Open(string fileFullname, string FileSign, int type)
+{
+    int result;
+    try
+    {
+        StorageFile windowsRuntimeFile = await StorageApplicationPermissions.get_FutureAccessList().GetFileAsync(FileSign);
+        Stream arg_13D_0 = await windowsRuntimeFile.OpenStreamForReadAsync();
+        this.mEBK3Stream = arg_13D_0;
+
+        using (arg_13D_0)
+        {
+            this.mEBK3Buffer = new byte[(int)this.mEBK3Stream.Length];
+            this.mEBK3Stream.Read(this.mEBK3Buffer, 0, this.mEBK3Buffer.Length);
+        }
+
+        byte[] array = this.mEBK3Buffer;
+        EBK3HeadStruct eBK3HeadStruct = default(EBK3HeadStruct);
+        EBK3HeadInfoModel eBK3HeadInfoModel = new EBK3HeadInfoModel();
+        ChapterHeadModelStruct chapterHeadModelStruct = default(ChapterHeadModelStruct);
+        new blockinfoModel();
+        new ChapterListModel();
+        DynDataStruct dynDataStruct = default(DynDataStruct);
+        eBK3HeadStruct = new ByteToStructEbk3().GetHeadStruct(array);
+        int decode_key = (int)eBK3HeadStruct.decode_key;
+        byte[] array2 = new byte[eBK3HeadStruct.header_length];
+        Array.Copy(array, 0, array2, 0, array2.Length);
+        byte[] array3 = new byte[array2.Length - 16];
+        Array.Copy(array, 16, array3, 0, array3.Length);
+        eBK3HeadInfoModel = Ebk3Open.GetRecodeModel(this.ebk3_data.pbk_sys_data_decode(array3, decode_key), (int)eBK3HeadInfoModel.modellenth);
+        byte[] array4 = new byte[16];
+        Array.Copy(array, (int)eBK3HeadInfoModel.chapter_dyn_info_offset5, array4, 0, array4.Length);
+        dynDataStruct = new ByteToStructEbk3().GetDynDataStruct(array4);
+        byte[] array5 = new byte[dynDataStruct.chapter_list_length];
+        Array.Copy(array, (int)dynDataStruct.chapter_list_offset, array5, 0, array5.Length);
+        chapterHeadModelStruct = new ByteToStructEbk3().GetChapterHeadModelStruct(array5);
+        byte[] array6 = new byte[array5.Length - 8];
+        Array.Copy(array5, 8, array6, 0, array6.Length);
+        this.mChapterList = this.GetChapterList((int)chapterHeadModelStruct.chapter_count, (int)chapterHeadModelStruct.chapter_name_header_length, array6, decode_key);
+
+        if (this.mChapterList.Count == 0)
+        {
+            result = 0;
+        }
+        else
+        {
+            this.mChapterList = this.SortChapterList(this.mChapterList);
+            result = 1;
+        }
+    }
+
+    catch (Exception)
+    {
+        result = 0;
+    }
+
+    return result;
+}
+
+private List<int> getblocksize(byte[] buffer)
+{
+    List<int> list = new List<int>();
+    byte[] array = new byte[4];
+    Array.Copy(buffer, 0, array, 0, 4);
+    int num = (int)BitConverter.ToUInt32(array, 0);
+    int num2 = 4;
+    for (int i = 0; i < num; i++)
+    {
+        byte[] array2 = new byte[4];
+        Array.Copy(buffer, num2, array2, 0, array2.Length);
+        int item = (int)BitConverter.ToUInt32(array2, 0);
+        num2 += array2.Length;
+        list.Add(item);
+    }
+
+    return list;
+}
+
+private string Getchapter(byte[] blockdata, int type)
+{
+    blockStruct blockStruct = default(blockStruct);
+    GetData getData = new GetData();
+    blockStruct = new ByteToStructEbk3().GetBlockStruct(blockdata);
+    byte[] array = new byte[blockStruct.header_length - 12u];
+    Array.Copy(blockdata, 12, array, 0, array.Length);
+    blockinfoModel recodeBlockModel = this.GetRecodeBlockModel(this.ebk3_data.pbk_sys_data_decode(array, (int)blockStruct.decode_key), 11);
+    if (recodeBlockModel.file_list_offset11 != 0u)
+    {
+        byte[] array2 = new byte[(long)blockdata.Length - (long)((ulong)recodeBlockModel.file_list_offset11)];
+        Array.Copy(blockdata, (int)recodeBlockModel.file_list_offset11, array2, 0, array2.Length);
+    }
+
+    byte[] array3 = new byte[4];
+    Array.Copy(blockdata, (int)blockStruct.header_length, array3, 0, 4);
+    int num = (int)BitConverter.ToUInt32(this.ebk3_data.pbk_sys_data_decode(array3, (int)blockStruct.decode_key), 0);
+    int num2 = (int)(blockStruct.header_length + 4u);
+    byte[] array4 = new byte[20971520];
+    int num3 = 0;
+    int num4 = 0;
+    byte[] array5 = new byte[num * 4];
+    Array.Copy(blockdata, num2, array5, 0, array5.Length);
+    byte[] sourceArray = this.ebk3_data.pbk_sys_data_decode(array5, (int)blockStruct.decode_key);
+    for (int i = 0; i < num; i++)
+    {
+        byte[] array6 = new byte[4];
+        Array.Copy(sourceArray, i * 4, array6, 0, 4);
+        int num5 = (int)BitConverter.ToUInt32(array6, 0);
+        byte[] array7 = new byte[num5];
+        Array.Copy(blockdata, num2 + num * 4 + num4, array7, 0, array7.Length);
+        byte[] inputBytes = new byte[num5];
+        inputBytes = getData.decodeingtext(array7, (int)blockStruct.decode_key);
+        byte[] array8 = DeCompress.Decompress(inputBytes);
+        Array.Copy(array8, 0, array4, num3, array8.Length);
+        num4 += num5;
+        num3 += array8.Length;
+    }
+    byte[] array9 = new byte[num3];
+    Array.Copy(array4, 0, array9, 0, array9.Length);
+    string @string;
+    if (type == 0)
+    {
+        @string = Encoding.Unicode.GetString(array9, 0, array9.Length);
+    }
+    else
+    {
+        @string = Encoding.Unicode.GetString(array9, 0, array9.Length);
+    }
+    return @string;
+}
+
+private List<ChapterListModel> GetChapterList(int chaptercount, int headlenth, byte[] buff, int key)
+{
+    List<ChapterListModel> list = new List<ChapterListModel>();
+    ChapterListStruct chapterListStruct = default(ChapterListStruct);
+    int num = 0;
+    for (int i = 0; i < chaptercount; i++)
+    {
+        ChapterListModel chapterListModel = new ChapterListModel();
+        byte[] array = new byte[24];
+        Array.Copy(buff, num, array, 0, array.Length);
+        byte[] array2 = new byte[4];
+        Array.Copy(array, 12, array2, 0, 4);
+        Array.Copy(this.ebk3_data.pbk_sys_data_decode(array2, key), 0, array, 12, 4);
+        chapterListStruct = new ByteToStructEbk3().GetBlockFileList(array);
+        chapterListModel.chapter_index1 = chapterListStruct.chapter_index1;
+        chapterListModel.chapter_level2 = chapterListStruct.chapter_level2;
+        chapterListModel.chapter_data_type3 = chapterListStruct.chapter_data_type3;
+        chapterListModel.chapter_data_block_offset4 = chapterListStruct.chapter_data_block_offset4;
+        chapterListModel.chapter_content_decompresss_offset5 = chapterListStruct.chapter_content_decompresss_offset5;
+        chapterListModel.chapter_content_decompress_length6 = chapterListStruct.chapter_content_decompress_length6;
+        chapterListModel.chapter_name_length7 = chapterListStruct.chapter_name_length7;
+        byte[] array3 = new byte[chapterListModel.chapter_name_length7];
+        Array.Copy(buff, num + array.Length, array3, 0, array3.Length);
+        chapterListModel.chapter_name_data8 = Encoding.Unicode.GetString(this.ebk3_data.pbk_sys_data_decode(array3, key), 0, array3.Length);
+        num += array.Length + array3.Length;
+        list.Add(chapterListModel);
+    }
+
+    return list;
+}
+
+private byte[] getHeadDy(byte[] head, DynDataStruct dy)
+{
+    byte[] bytes = BitConverter.GetBytes(dy.dyn_data_length);
+    byte[] bytes2 = BitConverter.GetBytes(dy.book_id);
+    byte[] bytes3 = BitConverter.GetBytes(dy.chapter_list_offset);
+    byte[] bytes4 = BitConverter.GetBytes(dy.chapter_list_length);
+    byte[] array = new byte[16 + head.Length];
+    Array.Copy(head, 0, array, 0, head.Length);
+    Array.Copy(bytes, 0, array, head.Length, 4);
+    Array.Copy(bytes2, 0, array, head.Length + 4, 4);
+    Array.Copy(bytes3, 0, array, head.Length + 8, 4);
+    Array.Copy(bytes4, 0, array, head.Length + 12, 4);
+    return array;
+}
+
+private byte[] getHeadDy(DynDataStruct dy)
+{
+    byte[] bytes = BitConverter.GetBytes(dy.dyn_data_length);
+    byte[] bytes2 = BitConverter.GetBytes(dy.book_id);
+    byte[] bytes3 = BitConverter.GetBytes(dy.chapter_list_offset);
+    byte[] bytes4 = BitConverter.GetBytes(dy.chapter_list_length);
+    byte[] array = new byte[16];
+    Array.Copy(bytes, 0, array, 0, 4);
+    Array.Copy(bytes2, 0, array, 4, 4);
+    Array.Copy(bytes3, 0, array, 8, 4);
+    Array.Copy(bytes4, 0, array, 12, 4);
+    return array;
+}
+
+private string GetOneChapter(byte[] blockdata, int type, int mChapterIndex)
+{
+    blockStruct blockStruct = default(blockStruct);
+    GetData getData = new GetData();
+    blockStruct = new ByteToStructEbk3().GetBlockStruct(blockdata);
+    byte[] array = new byte[blockStruct.header_length - 12u];
+    Array.Copy(blockdata, 12, array, 0, array.Length);
+    blockinfoModel recodeBlockModel = this.GetRecodeBlockModel(this.ebk3_data.pbk_sys_data_decode(array, (int)blockStruct.decode_key), 13);
+    if (recodeBlockModel.file_list_offset11 != 0u)
+    {
+        byte[] array2 = new byte[(long)blockdata.Length - (long)((ulong)recodeBlockModel.file_list_offset11)];
+        Array.Copy(blockdata, (int)recodeBlockModel.file_list_offset11, array2, 0, array2.Length);
+    }
+    byte[] array3 = new byte[4];
+    Array.Copy(blockdata, (int)blockStruct.header_length, array3, 0, 4);
+    int num = (int)BitConverter.ToUInt32(this.ebk3_data.pbk_sys_data_decode(array3, (int)blockStruct.decode_key), 0);
+    int num2 = (int)(blockStruct.header_length + 4u);
+    byte[] array4 = new byte[num * 4];
+    Array.Copy(blockdata, num2, array4, 0, array4.Length);
+    byte[] sourceArray = this.ebk3_data.pbk_sys_data_decode(array4, (int)blockStruct.decode_key);
+    uint num3 = this.mChapterList[mChapterIndex].chapter_content_decompresss_offset5 / 65536u;
+    if ((ulong)num3 > (ulong)((long)num))
+    {
+        return "";
+    }
+    int num4 = 0;
+    int num5 = (int)(this.mChapterList[mChapterIndex].chapter_content_decompresss_offset5 % 65536u);
+    int num6 = 0;
+    int num7;
+    while ((long)num6 < (long)((ulong)num3))
+    {
+        byte[] array5 = new byte[4];
+        Array.Copy(sourceArray, num6 * 4, array5, 0, 4);
+        num7 = (int)BitConverter.ToUInt32(array5, 0);
+        num4 += num7;
+        num6++;
+    }
+    byte[] array6 = new byte[4];
+    Array.Copy(sourceArray, (int)(num3 * 4u), array6, 0, 4);
+    num7 = (int)BitConverter.ToUInt32(array6, 0);
+    byte[] array7 = new byte[num7];
+    Array.Copy(blockdata, num2 + num * 4 + num4, array7, 0, array7.Length);
+    byte[] inputBytes = new byte[num7];
+    inputBytes = getData.decodeingtext(array7, (int)blockStruct.decode_key);
+    byte[] sourceArray2 = DeCompress.Decompress(inputBytes);
+    byte[] array8 = new byte[this.mChapterList[mChapterIndex].chapter_content_decompress_length6];
+    string result = "";
+    if (num5 + array8.Length < 65536)
+    {
+        Array.Copy(sourceArray2, num5, array8, 0, array8.Length);
+    }
+    else
+
+        Array.Copy(sourceArray2, num5, array8, 0, 65536 - num5);
+    }
+
+    if ((long)num5 + (long)((ulong)this.mChapterList[mChapterIndex].chapter_content_decompress_length6) > 65536L)
+    {
+        num3 += 1u;
+        if ((ulong)num3 >= (ulong)((long)num))
+        {
+            return "";
+        }
+        int arg_27E_0 = (int)((long)num5 + (long)((ulong)this.mChapterList[mChapterIndex].chapter_content_decompress_length6)) % 65536;
+        num4 = 0;
+        int num8 = 0;
+        while ((long)num8 < (long)((ulong)num3))
+        {
+            byte[] array9 = new byte[4];
+            Array.Copy(sourceArray, num8 * 4, array9, 0, 4);
+            num7 = (int)BitConverter.ToUInt32(array9, 0);
+            num4 += num7;
+            num8++;
+        }
+        array6 = new byte[4];
+        Array.Copy(sourceArray, (int)(num3 * 4u), array6, 0, 4);
+        num7 = (int)BitConverter.ToUInt32(array6, 0);
+        array7 = new byte[num7];
+        Array.Copy(blockdata, num2 + num * 4 + num4, array7, 0, array7.Length);
+        inputBytes = new byte[num7];
+        inputBytes = getData.decodeingtext(array7, (int)blockStruct.decode_key);
+        sourceArray2 = DeCompress.Decompress(inputBytes);
+        Array.Copy(sourceArray2, 0, array8, 65536 - num5, array8.Length - (65536 - num5));
+    }
+    if (type != 0)
+    {
+        result = Encoding.Unicode.GetString(array8, 0, array8.Length);
+    }
+    return result;
+}
+
+private byte[] getOneChapterList(ChapterListModel OneChapter, int key)
+{
+    int num = 0;
+    byte[] bytes = BitConverter.GetBytes(OneChapter.chapter_index1);
+    byte[] bytes2 = BitConverter.GetBytes(OneChapter.chapter_level2);
+    byte[] bytes3 = BitConverter.GetBytes(OneChapter.chapter_data_type3);
+    byte[] array = this.ebk3_data.pbk_sys_data_encode(BitConverter.GetBytes(OneChapter.chapter_data_block_offset4), key);
+    byte[] bytes4 = BitConverter.GetBytes(OneChapter.chapter_content_decompresss_offset5);
+    byte[] bytes5 = BitConverter.GetBytes(OneChapter.chapter_content_decompress_length6);
+    byte[] array2 = this.ebk3_data.pbk_sys_data_encode(Encoding.Unicode.GetBytes(OneChapter.chapter_name_data8), key);
+    byte[] bytes6 = BitConverter.GetBytes(array2.Length);
+    byte[] array3 = new byte[bytes6.Length + bytes.Length + bytes2.Length + bytes3.Length + array.Length + bytes4.Length + bytes5.Length + array2.Length];
+    Array.Copy(bytes6, 0, array3, 0, bytes6.Length);
+    num += bytes6.Length;
+    Array.Copy(bytes, 0, array3, num, bytes.Length);
+    num += bytes.Length;
+    Array.Copy(bytes2, 0, array3, num, bytes2.Length);
+    num += bytes2.Length;
+    Array.Copy(bytes3, 0, array3, num, bytes3.Length);
+    num += bytes3.Length;
+    Array.Copy(array, 0, array3, num, array.Length);
+    num += array.Length;
+    Array.Copy(bytes4, 0, array3, num, bytes4.Length);
+    num += bytes4.Length;
+    Array.Copy(bytes5, 0, array3, num, bytes5.Length);
+    num += bytes5.Length;
+    Array.Copy(array2, 0, array3, num, array2.Length);
+    return array3;
+}
+
+private blockinfoModel GetRecodeBlockModel(byte[] allbuffer, int count)
+{
+    blockinfoModel blockinfoModel = new blockinfoModel();
+    byte[] array = new byte[allbuffer.Length - 4];
+    byte[] array2 = new byte[4];
+    Array.Copy(allbuffer, 0, array2, 0, 4);
+    BitConverter.ToUInt32(array2, 0);
+    Array.Copy(allbuffer, 4, array, 0, array.Length);
+    int num = 0;
+    for (int i = 0; i < count; i++)
+    {
+        byte[] array3 = new byte[4];
+        byte[] array4 = new byte[4];
+        Array.Copy(array, num, array3, 0, array3.Length);
+        uint num2 = BitConverter.ToUInt32(array3, 0);
+        Array.Copy(array, num + 4, array4, 0, array4.Length);
+        uint num3 = BitConverter.ToUInt32(array4, 0);
+        byte[] array5 = new byte[num3 - 8u];
+        Array.Copy(array, num + 8, array5, 0, array5.Length);
+        num += (int)num3;
+        switch (num2)
+        {
+            case 1u:
+                blockinfoModel.min_version1 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 2u:
+                blockinfoModel.min_tip2 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 3u:
+                blockinfoModel.compress_type3 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 4u:
+                blockinfoModel.compress_block_size4 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 5u:
+                blockinfoModel.datatype5 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 6u:
+                blockinfoModel.locale6 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 7u:
+                blockinfoModel.encoding7 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 8u:
+                blockinfoModel.chapter_index8 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 9u:
+                blockinfoModel.chapter_level9 = BitConverter.ToUInt16(array5, 0);
+                break;
+            case 10u:
+                blockinfoModel.chapter_name10 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 11u:
+                blockinfoModel.file_list_offset11 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 12u:
+                blockinfoModel.chapter_content_decompress_length12 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 13u:
+                blockinfoModel.chapter_file_size13 = BitConverter.ToUInt32(array5, 0);
+                break;
+        }
+    }
+    return blockinfoModel;
+}
+
+public static EBK3HeadInfoModel GetRecodeModel(byte[] allbuffer, int count)
+{
+    byte[] array = new byte[allbuffer.Length - 4];
+    byte[] array2 = new byte[4];
+    Array.Copy(allbuffer, 0, array2, 0, 4);
+    BitConverter.ToUInt32(array2, 0);
+    Array.Copy(allbuffer, 4, array, 0, array.Length);
+    EBK3HeadInfoModel eBK3HeadInfoModel = new EBK3HeadInfoModel();
+    int num = 0;
+    for (int i = 0; i < count; i++)
+    {
+        byte[] array3 = new byte[4];
+        byte[] array4 = new byte[4];
+        Array.Copy(array, num, array3, 0, array3.Length);
+        uint num2 = BitConverter.ToUInt32(array3, 0);
+        Array.Copy(array, num + 4, array4, 0, array4.Length);
+        uint num3 = BitConverter.ToUInt32(array4, 0);
+        byte[] array5 = new byte[num3 - 8u];
+        Array.Copy(array, num + 8, array5, 0, array5.Length);
+        num += (int)num3;
+        switch (num2)
+        {
+            case 1u:
+                eBK3HeadInfoModel.min_version1 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 2u:
+                eBK3HeadInfoModel.unique_identifier2 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 3u:
+                eBK3HeadInfoModel.book_file_type3 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 4u:
+                eBK3HeadInfoModel.chapter_list_offset4 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 5u:
+                eBK3HeadInfoModel.chapter_dyn_info_offset5 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 6u:
+                eBK3HeadInfoModel.cover_data_offset6 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 7u:
+                eBK3HeadInfoModel.creator7 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 8u:
+                eBK3HeadInfoModel.create_timer8 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 9u:
+                eBK3HeadInfoModel.name9 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 10u:
+                eBK3HeadInfoModel.author10 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 11u:
+                eBK3HeadInfoModel.subject11 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 12u:
+                eBK3HeadInfoModel.publisher12 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 13u:
+                eBK3HeadInfoModel.isbn13 = Encoding.Unicode.GetString(array5, 0, array5.Length);
+                break;
+            case 14u:
+                eBK3HeadInfoModel.file_size14 = BitConverter.ToUInt32(array5, 0);
+                break;
+            case 15u:
+                eBK3HeadInfoModel.revise_version16 = BitConverter.ToUInt32(array5, 0);
+                break;
+        }
+    }
+    return eBK3HeadInfoModel;
+}
+
+public BookInfo Open(byte[] buffer)
+{
+    EBK3HeadStruct eBK3HeadStruct = default(EBK3HeadStruct);
+    EBK3HeadInfoModel eBK3HeadInfoModel = new EBK3HeadInfoModel();
+    ChapterHeadModelStruct chapterHeadModelStruct = default(ChapterHeadModelStruct);
+    new blockinfoModel();
+    new ChapterListModel();
+    DynDataStruct dynDataStruct = default(DynDataStruct);
+    eBK3HeadStruct = new ByteToStructEbk3().GetHeadStruct(buffer);
+    int decode_key = (int)eBK3HeadStruct.decode_key;
+    byte[] array = new byte[eBK3HeadStruct.header_length];
+    Array.Copy(buffer, 0, array, 0, array.Length);
+    byte[] array2 = new byte[array.Length - 16];
+    Array.Copy(buffer, 16, array2, 0, array2.Length);
+    eBK3HeadInfoModel = Ebk3Open.GetRecodeModel(this.ebk3_data.pbk_sys_data_decode(array2, decode_key), (int)eBK3HeadInfoModel.modellenth);
+    byte[] array3 = new byte[16];
+    Array.Copy(buffer, (int)eBK3HeadInfoModel.chapter_dyn_info_offset5, array3, 0, array3.Length);
+    dynDataStruct = new ByteToStructEbk3().GetDynDataStruct(array3);
+    byte[] array4 = new byte[dynDataStruct.chapter_list_length];
+    Array.Copy(buffer, (int)dynDataStruct.chapter_list_offset, array4, 0, array4.Length);
+    chapterHeadModelStruct = new ByteToStructEbk3().GetChapterHeadModelStruct(array4);
+    byte[] array5 = new byte[array4.Length - 8];
+    Array.Copy(array4, 8, array5, 0, array5.Length);
+    List<ChapterListModel> chapterList = this.GetChapterList((int)chapterHeadModelStruct.chapter_count, (int)chapterHeadModelStruct.chapter_name_header_length, array5, decode_key);
+    BookInfo bookInfo = new BookInfo();
+    for (int i = 0; i < chapterList.Count; i++)
+    {
+        ChapterListModel chapterListModel = chapterList[i];
+        if (chapterListModel.chapter_data_type3 != 0 && !(bookInfo.Text != ""))
+        {
+            byte[] array6 = new byte[(long)buffer.Length - (long)((ulong)chapterListModel.chapter_data_block_offset4)];
+            Array.Copy(buffer, (int)chapterListModel.chapter_data_block_offset4, array6, 0, array6.Length);
+            string text = this.Getchapter(array6, 1);
+            bookInfo.Text = text;
+        }
+    }
+    byte[] bytes = Encoding.Unicode.GetBytes(bookInfo.Text);
+    int num = 0;
+    int num2 = 0;
+    for (int j = 0; j < chapterList.Count; j++)
+    {
+        ChapterListModel chapterListModel2 = chapterList[j];
+        if (chapterListModel2.chapter_data_type3 == 1)
+        {
+            if (num == 0)
+            {
+                BookItems item = new BookItems(chapterListModel2.chapter_name_data8, 0, chapterListModel2.chapter_name_data8.Length);
+                bookInfo.ChaterList.Add(item);
+            }
+            else
+            {
+                ChapterListModel chapterListModel3 = chapterList[j - 1];
+                int chapter_content_decompresss_offset = (int)chapterListModel3.chapter_content_decompresss_offset5;
+                int chapter_content_decompress_length = (int)chapterListModel3.chapter_content_decompress_length6;
+                byte[] array7 = new byte[chapter_content_decompress_length];
+                Array.Copy(bytes, chapter_content_decompresss_offset, array7, 0, chapter_content_decompress_length);
+                string @string = Encoding.Unicode.GetString(array7, 0, array7.Length);
+                num2 += @string.Replace("\r\n", "\n").Length;
+                BookItems item2 = new BookItems(chapterListModel2.chapter_name_data8, num2, chapterListModel2.chapter_name_data8.Length);
+                bookInfo.ChaterList.Add(item2);
+            }
+            num++;
+        }
+    }
+    return bookInfo;
+}
+
+public List<ChapterListModel> SortChapterList(List<ChapterListModel> chapterList)
+{
+    for (int i = chapterList.Count; i > 0; i--)
+    {
+        for (int j = 0; j < i - 1; j++)
+        {
+            if (chapterList[j].chapter_index1 > chapterList[j + 1].chapter_index1)
+            {
+                ChapterListModel value = chapterList[j];
+                chapterList[j] = chapterList[j + 1];
+                chapterList[j + 1] = value;
+            }
+        }
+        if (i > 2 && chapterList[i - 1].chapter_index1 == chapterList[i - 2].chapter_index1)
+        {
+            chapterList.RemoveAt(i - 1);
+        }
+    }
+    return chapterList;
+}
+
+private void writefile(byte[] filebyte)
+{
+}
+
+23.Ebk3Update
+using System;
+using System.IO;
+namespace Zhangyue.iReader.EBK3
+{
+    public class Ebk3Update
+    {
+        public void getEbk3Head(Stream fileHead)
+        {
+        }
+        public void getEbk3Chapter(string chapter)
+        {
+        }
+        public void getEbk3ChapterHead()
+        {
+        }
+        public void updateEbk3Chapterlist()
+        {
+        }
+        public void IntegrateEbk3()
+        {
+        }
+        public void updateEbk3Head()
+        {
+        }
+    }
+}
+
+24.GetChapterListArray
+using System;
+using System.Text;
+namespace Zhangyue.iReader.EBK3
+{
+    public class GetChapterListArray
+    {
+        public byte[] infomodelarray(ChapterListModel infomodel, int key)
+        {
+            Ebk3_Data ebk3_Data = new Ebk3_Data();
+            object[] array = new object[infomodel.chaptermodellenth];
+            ChapterListByteModel chapterListByteModel = new ChapterListByteModel();
+            chapterListByteModel.chapter_index1 = BitConverter.GetBytes(infomodel.chapter_index1);
+            chapterListByteModel.chapter_level2 = BitConverter.GetBytes(infomodel.chapter_level2);
+            chapterListByteModel.chapter_data_type3 = BitConverter.GetBytes(infomodel.chapter_data_type3);
+            byte[] bytes = BitConverter.GetBytes(infomodel.chapter_data_block_offset4);
+            chapterListByteModel.chapter_data_block_offset4 = ebk3_Data.pbk_sys_data_encode(bytes, key);
+            chapterListByteModel.chapter_content_decompresss_offset5 = BitConverter.GetBytes(infomodel.chapter_content_decompresss_offset5);
+            chapterListByteModel.chapter_content_decompress_length6 = BitConverter.GetBytes(infomodel.chapter_content_decompress_length6);
+            chapterListByteModel.chapter_name_length7 = BitConverter.GetBytes(infomodel.chapter_name_length7);
+            byte[] bytes2 = Encoding.Unicode.GetBytes(infomodel.chapter_name_data8);
+            chapterListByteModel.chapter_name_data8 = ebk3_Data.pbk_sys_data_encode(bytes2, key);
+            array[0] = chapterListByteModel.chapter_name_length7;
+            array[1] = chapterListByteModel.chapter_index1;
+            array[2] = chapterListByteModel.chapter_level2;
+            array[3] = chapterListByteModel.chapter_data_type3;
+            array[4] = chapterListByteModel.chapter_data_block_offset4;
+            array[5] = chapterListByteModel.chapter_content_decompresss_offset5;
+            array[6] = chapterListByteModel.chapter_content_decompress_length6;
+            array[7] = chapterListByteModel.chapter_name_data8;
+            byte[] array2 = new byte[102400];
+            int num = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                byte[] array3 = array[i] as byte[];
+                Array.Copy(array3, 0, array2, num, array3.Length);
+                num += array3.Length;
+            }
+            byte[] array4 = new byte[num];
+            Array.Copy(array2, 0, array4, 0, array4.Length);
+            return array4;
+        }
+    }
+}
+
+25.GetData
+using StructLib;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Zhangyue.iReader.EBK2;
+namespace Zhangyue.iReader.EBK3
+{
+    public class GetData
+    {
+        private Ebk3_Data ebk_data = new Ebk3_Data();
+        public byte[] GetEbk3HeadData(EBK3HeadInfoModel infomodel, uint time)
+        {
+            EBK3HeadStruct eBK3HeadStruct = default(EBK3HeadStruct);
+            new Model();
+            GetEbk3HeadArray getEbk3HeadArray = new GetEbk3HeadArray();
+            Ebk3_Data ebk3_Data = new Ebk3_Data();
+            byte[] array = new byte[4];
+            Encoding.UTF8.GetBytes("EBK3").CopyTo(array, 0);
+            eBK3HeadStruct.identifier = array;
+            eBK3HeadStruct.header_key = 0u;
+            eBK3HeadStruct.decode_key = time;
+            object[] infomodellist = getEbk3HeadArray.infomodelarray(infomodel);
+            byte[] recodeByte = this.GetRecodeByte(infomodellist);
+            byte[] array2 = ebk3_Data.pbk_sys_data_encode(recodeByte, (int)eBK3HeadStruct.decode_key);
+            eBK3HeadStruct.header_length = (uint)(16 + recodeByte.Length);
+            byte[] array3 = new byte[eBK3HeadStruct.header_length];
+            byte[] array4 = Ebk3Make.StrucTObytes(eBK3HeadStruct);
+            Array.Copy(array4, 0, array3, 0, array4.Length);
+            Array.Copy(array2, 0, array3, array4.Length, array2.Length);
+            return array3;
+        }
+
+        public async Task<byte[]> GetPicdata(string picfilepath)
+        {
+            PicHeadModel picHeadModel = new PicHeadModel();
+            picHeadModel.cover_count = 1;
+            byte[] array = new byte[4];
+            array = BitConverter.GetBytes(picHeadModel.cover_count);
+            byte[] array2 = new byte[4];
+            array2 = BitConverter.GetBytes(picHeadModel.cover_header_length);
+            byte[] array3 = await this.GetPicByte(picfilepath);
+            int num = array.Length + array2.Length + array3.Length;
+            byte[] array4 = new byte[num];
+            Array.Copy(array, 0, array4, 0, array.Length);
+            Array.Copy(array2, 0, array4, 4, array2.Length);
+            Array.Copy(array3, 0, array4, 8, array3.Length);
+            return array4;
+        }
+
+        public byte[] GetRecodeByte(object[] infomodellist)
+        {
+            uint value = (uint)infomodellist.Length;
+            byte[] bytes = BitConverter.GetBytes(value);
+            byte[] array = new byte[1048576];
+            int num = 0;
+            Model model = new Model();
+            for (int i = 0; i < infomodellist.Length; i++)
+            {
+                byte[] array2 = infomodellist[i] as byte[];
+                model.record_type = (uint)(i + 1);
+                byte[] array3 = new byte[4];
+                array3 = BitConverter.GetBytes(model.record_type);
+                model.record_length = (uint)(8 + array2.Length);
+                byte[] array4 = new byte[4];
+                array4 = BitConverter.GetBytes(model.record_length);
+                byte[] array5 = new byte[8 + array2.Length];
+                Array.Copy(array3, 0, array5, 0, array3.Length);
+                Array.Copy(array4, 0, array5, 4, array4.Length);
+                Array.Copy(array2, 0, array5, 8, array2.Length);
+                Array.Copy(array5, 0, array, num, array5.Length);
+                num += array5.Length;
+            }
+            byte[] array6 = new byte[num + 4];
+            Array.Copy(bytes, 0, array6, 0, bytes.Length);
+            Array.Copy(array, 0, array6, 4, num);
+            return array6;
+        }
+
+        public byte[] OnlyChapter(string html, int allheadenth, string htmlname, int index, int encodeing, int key)
+        {
+            GetChapterListArray getChapterListArray = new GetChapterListArray();
+            ChapterListModel chapterListModel = new ChapterListModel();
+            chapterListModel.chapter_index1 = (uint)index;
+            chapterListModel.chapter_level2 = 1;
+            chapterListModel.chapter_data_type3 = 0;
+            chapterListModel.chapter_data_block_offset4 = (uint)allheadenth;
+            chapterListModel.chapter_content_decompresss_offset5 = 0u;
+            if (encodeing == 3)
+            {
+                chapterListModel.chapter_content_decompress_length6 = (uint)Encoding.UTF8.GetBytes(html).Length;
+            }
+            if (encodeing == 1)
+            {
+                chapterListModel.chapter_content_decompress_length6 = (uint)Encoding.Unicode.GetBytes(html).Length;
+            }
+            chapterListModel.chapter_name_length7 = (uint)Encoding.Unicode.GetBytes(htmlname).Length;
+            chapterListModel.chapter_name_data8 = htmlname;
+            return getChapterListArray.infomodelarray(chapterListModel, key);
+        }
+
+        public async Task<byte[]> GetPicByte(string filepath)
+        {
+            PicModel picModel = new PicModel();
+            Pic pic = new Pic();
+            picModel.cover_img_type = 1u;
+            picModel.cover_width = 150u;
+            picModel.cover_height = 200u;
+            byte[] array = await this.GetByte(filepath);
+            picModel.cover_data_length = (uint)(4 + array.Length);
+            picModel.cover_data = array;
+            return pic.GetPicByte(picModel);
+        }
+
+        public byteinfo GetTextChapter(BookInfo bookinfo, int chapterstart, int chapterblock, int key)
+        {
+            string text = bookinfo.Text;
+            List<chapterlist> list = new List<chapterlist>();
+            Model model = new Model();
+            byteinfo byteinfo = new byteinfo();
+            ChapterListModel chapterListModel = new ChapterListModel();
+            GetChapterListArray getChapterListArray = new GetChapterListArray();
+            int num = 0;
+            int num2 = 0;
+            string text2 = text.Replace("\r\n", "\n");
+            for (int i = 0; i < bookinfo.ChaterList.Count; i++)
+            {
+                int index = bookinfo.ChaterList[i].Index;
+                int num3;
+                if (i != bookinfo.ChaterList.Count - 1)
+                {
+                    num3 = bookinfo.ChaterList[i + 1].Index;
+                }
+                else
+                {
+                    num3 = text2.Length;
+                }
+                string text3 = text2.Substring(index, num3 - index).Replace("\n", "\r\n");
+                int num4 = text3.Length * 2;
+                string chaptername = bookinfo.ChaterList[i].Name.Replace("\n", "");
+                chapterlist item = new chapterlist(num2, num4, chaptername);
+                list.Add(item);
+                num += Encoding.UTF8.GetBytes(text3).Length;
+                num2 += num4;
+            }
+            int j = num2;
+            int num5 = j / model.CATHY_LZ77_WINDOW_SIZE;
+            if (j % model.CATHY_LZ77_WINDOW_SIZE != 0)
+            {
+                num5++;
+            }
+            uint num6 = 0u;
+            uint num7 = 0u;
+            byte[] array = new byte[10485760];
+            byte[] bytes = Encoding.Unicode.GetBytes(text);
+            while (j >= model.CATHY_LZ77_WINDOW_SIZE)
+            {
+                byte[] array2 = new byte[65536];
+                Array.Copy(bytes, (int)(num7 * (uint)model.CATHY_LZ77_WINDOW_SIZE), array2, 0, array2.Length);
+                byte[] array3 = this.encodeingtext(DeCompress.Compress(array2), key);
+                Array.Copy(array3, 0, array, (int)num6, array3.Length);
+                int offset = (int)num6;
+                int lenth = array3.Length;
+                m_compressList item2 = new m_compressList(offset, lenth);
+                byteinfo.compressblocksizelist.Add(item2);
+                num7 += 1u;
+                num6 += (uint)array3.Length;
+                j -= model.CATHY_LZ77_WINDOW_SIZE;
+            }
+            if (j > 0)
+            {
+                byte[] array4 = new byte[j];
+                Array.Copy(bytes, bytes.Length - j, array4, 0, array4.Length);
+                byte[] array5 = this.encodeingtext(DeCompress.Compress(array4), key);
+                Array.Copy(array5, 0, array, (int)num6, array5.Length);
+                int offset2 = (int)num6;
+                int lenth2 = array5.Length;
+                num7 += 1u;
+                m_compressList item3 = new m_compressList(offset2, lenth2);
+                byteinfo.compressblocksizelist.Add(item3);
+                num6 += (uint)array5.Length;
+            }
+
+            byte[] array6 = new byte[1048576];
+            int num8 = 0;
+            for (int k = 0; k < bookinfo.ChaterList.Count; k++)
+            {
+                chapterlist chapterlist = list[k];
+                chapterListModel.chapter_index1 = (uint)(chapterstart + k);
+                chapterListModel.chapter_level2 = 1;
+                chapterListModel.chapter_data_type3 = 1;
+                chapterListModel.chapter_data_block_offset4 = (uint)chapterblock;
+                chapterListModel.chapter_content_decompresss_offset5 = (uint)chapterlist._offset;
+                chapterListModel.chapter_content_decompress_length6 = (uint)chapterlist._lenth;
+                chapterListModel.chapter_name_length7 = (uint)Encoding.Unicode.GetBytes(chapterlist._chaptername).Length;
+                chapterListModel.chapter_name_data8 = chapterlist._chaptername;
+                byte[] array7 = getChapterListArray.infomodelarray(chapterListModel, key);
+                Array.Copy(array7, 0, array6, num8, array7.Length);
+                num8 += array7.Length;
+            }
+            byte[] array8 = new byte[num6];
+            byte[] array9 = new byte[num8];
+            Array.Copy(array6, 0, array9, 0, array9.Length);
+            Array.Copy(array, 0, array8, 0, array8.Length);
+            byteinfo.compressysdate = array8;
+            byteinfo.chaptertxtbyteresult = array9;
+            return byteinfo;
+    }
+
+    public async Task<byte[]> GetByte(string filefullname)
+    {
+        StorageFolder documentsLibrary = KnownFolders.get_DocumentsLibrary();
+        StorageFile windowsRuntimeFile = await documentsLibrary.GetFileAsync(filefullname);
+        byte[] result;
+        using (Stream stream = await windowsRuntimeFile.OpenStreamForReadAsync())
+        {
+            byte[] array = new byte[(int)stream.Length];
+            stream.Read(array, 0, array.Length);
+            stream.Dispose();
+            result = array;
+        }
+
+        return result;
+    }
+
+    public byte[] ReturnBlockRecord(blockinfoModel blockinfomodel, int count, int key)
+    {
+        blockinfoArray blockinfoArray = new blockinfoArray();
+        object[] infomodellist = blockinfoArray.infoblockinfoarray(blockinfomodel, count);
+        byte[] recodeByte = this.GetRecodeByte(infomodellist);
+        return this.ebk_data.pbk_sys_data_encode(recodeByte, key);
+    }
+
+    public byte[] encodeingtext(byte[] buff, int key)
+    {
+        int num = 16;
+        if (buff.Length < 16)
+        {
+            num = buff.Length;
+        }
+        byte[] array = new byte[num];
+        Array.Copy(buff, 0, array, 0, num);
+        byte[] array2 = this.ebk_data.pbk_sys_data_encode(array, key);
+        Array.Copy(array2, 0, buff, 0, array2.Length);
+        return buff;
+    }
+
+    public byte[] decodeingtext(byte[] buff, int key)
+    {
+        int num = 16;
+        if (buff.Length < 16)
+        {
+            num = buff.Length;
+        }
+        byte[] array = new byte[num];
+        Array.Copy(buff, 0, array, 0, num);
+        byte[] array2 = this.ebk_data.pbk_sys_data_decode(array, key);
+        Array.Copy(array2, 0, buff, 0, array2.Length);
+        return buff;
+    }
+}
+
+26.GetEbk3HeadArray
+using System;
+using System.Text;
+namespace Zhangyue.iReader.EBK3
+{
+    public class GetEbk3HeadArray
+    {
+        public object[] infomodelarray(EBK3HeadInfoModel infomodel)
+        {
+            object[] array = new object[infomodel.modellenth];
+            EBK3HeadByteModel eBK3HeadByteModel = new EBK3HeadByteModel();
+            eBK3HeadByteModel.bytemin_version1 = BitConverter.GetBytes(infomodel.min_version1);
+            array[0] = eBK3HeadByteModel.bytemin_version1;
+            eBK3HeadByteModel.byteunique_identifier2 = Encoding.Unicode.GetBytes(infomodel.unique_identifier2);
+            array[1] = eBK3HeadByteModel.byteunique_identifier2;
+            eBK3HeadByteModel.bytebook_file_type3 = BitConverter.GetBytes(infomodel.book_file_type3);
+            array[2] = eBK3HeadByteModel.bytebook_file_type3;
+            eBK3HeadByteModel.bytechapter_list_offset4 = BitConverter.GetBytes(infomodel.chapter_list_offset4);
+            array[3] = eBK3HeadByteModel.bytechapter_list_offset4;
+            eBK3HeadByteModel.bytechapter_dyn_info_offset5 = BitConverter.GetBytes(infomodel.chapter_dyn_info_offset5);
+            array[4] = eBK3HeadByteModel.bytechapter_dyn_info_offset5;
+            eBK3HeadByteModel.bytecover_data_offset6 = BitConverter.GetBytes(infomodel.cover_data_offset6);
+            array[5] = eBK3HeadByteModel.bytecover_data_offset6;
+            eBK3HeadByteModel.bytecreator7 = Encoding.Unicode.GetBytes(infomodel.creator7);
+            array[6] = eBK3HeadByteModel.bytecreator7;
+            eBK3HeadByteModel.bytecreate_timer8 = Encoding.Unicode.GetBytes(infomodel.create_timer8);
+            array[7] = eBK3HeadByteModel.bytecreate_timer8;
+            eBK3HeadByteModel.bytename9 = Encoding.Unicode.GetBytes(infomodel.name9);
+            array[8] = eBK3HeadByteModel.bytename9;
+            eBK3HeadByteModel.byteauthor10 = Encoding.Unicode.GetBytes(infomodel.author10);
+            array[9] = eBK3HeadByteModel.byteauthor10;
+            eBK3HeadByteModel.bytesubject11 = Encoding.Unicode.GetBytes(infomodel.subject11);
+            array[10] = eBK3HeadByteModel.bytesubject11;
+            eBK3HeadByteModel.bytepublisher12 = Encoding.Unicode.GetBytes(infomodel.publisher12);
+            array[11] = eBK3HeadByteModel.bytepublisher12;
+            eBK3HeadByteModel.byteisbn13 = Encoding.Unicode.GetBytes(infomodel.isbn13);
+            array[12] = eBK3HeadByteModel.byteisbn13;
+            eBK3HeadByteModel.bytefile_size14 = BitConverter.GetBytes(infomodel.file_size14);
+            array[13] = eBK3HeadByteModel.bytefile_size14;
+            eBK3HeadByteModel.byterevise_version16 = BitConverter.GetBytes(infomodel.revise_version16);
+            array[14] = eBK3HeadByteModel.byterevise_version16;
+            return array;
+        }
+    }
+}
+
+27.m_compressList
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class m_compressList
+    {
+        public int _offset;
+        public int _lenth;
+        public m_compressList(int offset, int lenth)
+        {
+            this._offset = offset;
+            this._lenth = lenth;
+        }
+    }
+}
+
+28.Model
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class Model
+    {
+        public uint record_type;
+        public uint record_length;
+    }
+}
+
+29.Pic
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class Pic
+    {
+        public byte[] GetPicByte(PicModel model)
+        {
+            PicByteModel picByteModel = new PicByteModel();
+            object[] array = new object[5];
+            picByteModel.bytecover_img_type = BitConverter.GetBytes(model.cover_img_type);
+            picByteModel.bytecover_width = BitConverter.GetBytes(model.cover_width);
+            picByteModel.bytecover_height = BitConverter.GetBytes(model.cover_height);
+            picByteModel.bytecover_data_length = BitConverter.GetBytes(model.cover_data_length);
+            picByteModel.bytecover_data = model.cover_data;
+            array[0] = picByteModel.bytecover_data_length;
+            array[1] = picByteModel.bytecover_img_type;
+            array[2] = picByteModel.bytecover_width;
+            array[3] = picByteModel.bytecover_height;
+            array[4] = (picByteModel.bytecover_data = model.cover_data);
+            int num = picByteModel.bytecover_img_type.Length + picByteModel.bytecover_width.Length + picByteModel.bytecover_height.Length + picByteModel.bytecover_data_length.Length + picByteModel.bytecover_data.Length;
+            byte[] array2 = new byte[num];
+            int num2 = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                byte[] array3 = array[i] as byte[];
+                Array.Copy(array3, 0, array2, num2, array3.Length);
+                num2 += array3.Length;
+            }
+
+            return array2;
+        }
+    }
+}
+
+30.PicByteModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class PicByteModel
+    {
+        public byte[] bytecover_img_type = new byte[4];
+        public byte[] bytecover_width = new byte[4];
+        public byte[] bytecover_height = new byte[4];
+        public byte[] bytecover_data_length = new byte[4];
+        public byte[] bytecover_data;
+    }
+}
+
+31.PicHeadModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class PicHeadModel
+    {
+        public int cover_header_length = 16;
+        public int cover_count;
+    } 
+}
+
+32.PicModel
+using System;
+namespace Zhangyue.iReader.EBK3
+{
+    public class PicModel
+    {
+        public uint cover_img_type;
+        public uint cover_width;
+        public uint cover_height;
+        public uint cover_data_length;
+        public byte[] cover_data;
+    }
+}
+
+
