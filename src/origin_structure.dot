@@ -1,0 +1,340 @@
+digraph origin_structure
+{
+    struct [color=green];
+    class [color=red];
+
+
+    //blockfilelistStruct
+    blockfilelistStruct [color=green];    
+    blockfilelistStruct->file_name_length;
+    blockfilelistStruct->file_offset;
+    blockfilelistStruct->file_src_length;
+    blockfilelistStruct->file_compress_length;
+
+
+    //blockfileStruct
+    blockfileStruct [color=green];
+    blockfileStruct->file_count;
+    blockfileStruct->file_header_length;
+
+
+    //blockinfoArray
+    blockinfoArray [color=red];
+    blockinfoArray->infoblockinfoarray [style=bold, label="method"];
+
+
+    //blockinfobyteModel
+    blockinfobyteModel [color=red];
+    blockinfobyteModel->bytemin_version;
+    blockinfobyteModel->bytemin_tip;
+    blockinfobyteModel->bytecompress_type;
+    blockinfobyteModel->bytecompress_block_size;
+    blockinfobyteModel->bytedatatype;
+    blockinfobyteModel->bytelocale;
+    blockinfobyteModel->byteencoding;
+    blockinfobyteModel->bytechapter_index;
+    blockinfobyteModel->bytechapter_level;
+    blockinfobyteModel->bytechapter_name;
+    blockinfobyteModel->bytefile_list_offset11;
+    blockinfobyteModel->bytechapter_content_decompress_lengt12;
+    blockinfobyteModel->bytechapter_file_size13;
+
+
+    //blockinfoModel
+    blockinfoModel [color=red];
+    blockinfoModel->min_version1;
+    blockinfoModel->min_tip2;
+    blockinfoModel->compress_type3;
+    blockinfoModel->compress_block_size4;
+    blockinfoModel->datatype5;
+    blockinfoModel->locale6;
+    blockinfoModel->encoding7;
+    blockinfoModel->chapter_index8;
+    blockinfoModel->chapter_level9;
+    blockinfoModel->chapter_name10;
+    blockinfoModel->file_list_offset11;
+    blockinfoModel->chapter_content_decompress_length12;
+    blockinfoModel->chapter_file_size13;
+
+
+    //blockStruct
+    blockStruct [color=green];
+    blockStruct->header_key;
+    blockStruct->header_length;
+    blockStruct->decode_key;
+
+
+    //BookInfo
+    BookInfo [color=red];
+    BookInfo->_m_chapterlist;
+    BookInfo->_text;
+    BookInfo->_pic;
+    BookInfo->_bookName;
+    BookInfo->ChaterList [label="method"];
+    BookInfo->Text [label="method"];
+    BookInfo->Pic [label="method"];
+    BookInfo->BookName [label="method"];
+
+
+    //BookItems
+    BookItems [color=red];
+    BookItems->_name;
+    BookItems->_index;
+    BookItems->_length;
+    BookItems->Name [label="method"];
+    BookItems->Index [label="method"];
+    BookItems->Length [label="method"];
+    BookItems->BookItems [label="method"];
+
+
+    //byteinfo
+    byteinfo [color=red];
+    byteinfo->compressysdate;
+    byteinfo->chaptertxtbyteresult;
+    byteinfo->compressblocksizelist;
+
+
+    //ByteToStructEbk3
+    ByteToStructEbk3 [color=red];
+    ByteToStructEbk3->GetBlockFileList [label="method"];
+    ByteToStructEbk3->GetHeadStruct [label="method"];
+    ByteToStructEbk3->GetDynDataStruct [label="method"];
+    ByteToStructEbk3->GetBlockStruct [label="method"];
+    ByteToStructEbk3->GetChapterHeadModelStruct [label="method"];
+    ByteToStructEbk3->GetInt32 [label="method"];
+    ByteToStructEbk3->GetInt16 [label="method"];
+    ByteToStructEbk3->GetBytes [label="method"];
+
+
+    //ChapterHeadModelStruct
+    ChapterHeadModelStruct [color=green];
+    ChapterHeadModelStruct->chapter_count;
+    ChapterHeadModelStruct->chapter_name_header_length;
+
+
+    //chapterlist
+    chapterlist [color=red];
+    chapterlist->_lenth;
+    chapterlist->_chaptername;
+    chapterlist->chapterlist [label="method"];
+
+
+    //ChapterListByteModel
+    ChapterListByteModel [color=red];
+    ChapterListByteModel->chapter_index1;
+    ChapterListByteModel->chapter_level2;
+    ChapterListByteModel->chapter_data_type3;
+    ChapterListByteModel->chapter_data_block_offset4;
+    ChapterListByteModel->chapter_content_decompresss_offset5;
+    ChapterListByteModel->chapter_content_decompress_length6;
+    ChapterListByteModel->chapter_name_length7;
+    ChapterListByteModel->chapter_name_data8;
+
+
+    //ChapterListModel
+    ChapterListModel [color=red];
+    ChapterListModel->chapter_name_header_length;
+    ChapterListModel->chaptermodellenth;
+    ChapterListModel->chapter_index1;
+    ChapterListModel->chapter_level2;
+    ChapterListModel->chapter_data_type3;
+    ChapterListModel->chapter_data_block_offset4;
+    ChapterListModel->chapter_content_decompresss_offset5;
+    ChapterListModel->chapter_content_decompress_length6;
+    ChapterListModel->chapter_name_length7;
+    ChapterListModel->chapter_name_data8;
+
+
+    //ChapterListStruct
+    ChapterListStruct [color=green];
+    ChapterListStruct->chapter_name_length7;
+    ChapterListStruct->chapter_index1;
+    ChapterListStruct->chapter_level2;
+    ChapterListStruct->chapter_data_type3;
+    ChapterListStruct->chapter_data_block_offset4;
+    ChapterListStruct->chapter_content_decompresss_offset5;
+    ChapterListStruct->chapter_content_decompress_length6;
+    ChapterListStruct->chapter_name_data8;
+
+
+    //DynDataStruct
+    DynDataStruct [color=green];
+    DynDataStruct->dyn_data_length;
+    DynDataStruct->book_id;
+    DynDataStruct->chapter_list_offset;
+    DynDataStruct->chapter_list_length;
+
+
+    //Ebk3_Data
+    Ebk3_Data [color=red];
+    Ebk3_Data->holdrand;
+    Ebk3_Data->pbk_sys_crc16_ccitt_table;
+    Ebk3_Data->pbk_data_set [label="method"];
+    Ebk3_Data->pbk_data_n [label="method"];
+    Ebk3_Data->pbk_sys_data_encode [label="method"];
+    Ebk3_Data->pbk_sys_data_decode [label="method"];
+    Ebk3_Data->pbk_sys_get_crc16_value [label="method"];
+    Ebk3_Data->Ebk3_Data [label="method"];
+
+
+    //EBK3HeadByteModel
+    EBK3HeadByteModel [color=red];
+    EBK3HeadByteModel->bytemin_version1;
+    EBK3HeadByteModel->byteunique_identifier2;
+    EBK3HeadByteModel->bytebook_file_type3;
+    EBK3HeadByteModel->bytechapter_list_offset4;
+    EBK3HeadByteModel->bytechapter_dyn_info_offset5;
+    EBK3HeadByteModel->bytecover_data_offset6;
+    EBK3HeadByteModel->bytecreator7;
+    EBK3HeadByteModel->bytecreate_timer8;
+    EBK3HeadByteModel->bytename9;
+    EBK3HeadByteModel->byteauthor10;
+    EBK3HeadByteModel->bytesubject11;
+    EBK3HeadByteModel->bytepublisher12;
+    EBK3HeadByteModel->byteisbn13;
+    EBK3HeadByteModel->bytefile_size14;
+    EBK3HeadByteModel->byterevise_version16;
+
+
+    //EBK3HeadInfoModel
+    EBK3HeadInfoModel [color=red];
+    EBK3HeadInfoModel->modellenth;
+    EBK3HeadInfoModel->min_version1;
+    EBK3HeadInfoModel->unique_identifier2;
+    EBK3HeadInfoModel->book_file_type3;
+    EBK3HeadInfoModel->chapter_list_offset4;
+    EBK3HeadInfoModel->chapter_dyn_info_offset5;
+    EBK3HeadInfoModel->cover_data_offset6;
+    EBK3HeadInfoModel->creator7;
+    EBK3HeadInfoModel->create_timer8;
+    EBK3HeadInfoModel->name9;
+    EBK3HeadInfoModel->author10;
+    EBK3HeadInfoModel->subject11;
+    EBK3HeadInfoModel->publisher12;
+    EBK3HeadInfoModel->isbn13;
+    EBK3HeadInfoModel->file_size14;
+    EBK3HeadInfoModel->revise_version16;
+
+
+    //EBK3HeadStruct
+    EBK3HeadStruct [color=green];
+    /*[MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]*/
+    EBK3HeadStruct->identifier;
+    EBK3HeadStruct->header_key;
+    EBK3HeadStruct->header_length;
+    EBK3HeadStruct->decode_key;
+
+
+    //Ebk3Make
+    Ebk3Make [color=red];
+    StrucTObytes [label="method"];
+    BytesToStruct [label="method"];
+    ebk2makes [label="method"];
+
+
+    //Ebk3Open
+    Ebk3Open [color=red];
+    Ebk3Open->ebk3_data;
+    Ebk3Open->mChapterList;
+    Ebk3Open->mEBK3Buffer;
+    Ebk3Open->mEBK3Stream;
+    Ebk3Open->storageFolder;
+    Ebk3Open->Ebk3Open [label="method"];
+    Ebk3Open->EBK3AppendChap [label="method"];
+    Ebk3Open->EBK3Close [label="method"];
+    Ebk3Open->EBK3GetChapter [label="method"];
+    Ebk3Open->EBK3GetChapterList [label="method"];
+    Ebk3Open->EBK3Open [label="method"];
+    Ebk3Open->EBK3Open [label="method"];
+    Ebk3Open->getblocksize [label="method"];
+    Ebk3Open->Getchapter [label="method"];
+    Ebk3Open->GetChapterList [label="method"];
+    Ebk3Open->getHeadDy [label="method"];
+    Ebk3Open->getHeadDy [label="method"];
+    Ebk3Open->GetOneChapter [label="method"];
+    Ebk3Open->getOneChapterList [label="method"];
+    Ebk3Open->GetRecodeBlockModel [label="method"];
+    Ebk3Open->GetRecodeModel [label="method"];
+    Ebk3Open->Open [label="method"];
+    Ebk3Open->SortChapterList [label="method"];
+    Ebk3Open->writefile [label="method"];
+   
+
+    //Ebk3Update
+    Ebk3Update [color=red];
+    Ebk3Update->getEbk3Head [label="method"];
+    Ebk3Update->getEbk3Chapter [label="method"];
+    Ebk3Update->getEbk3ChapterHead [label="method"];
+    Ebk3Update->updateEbk3Chapterlist [label="method"];
+    Ebk3Update->IntegrateEbk3 [label="method"];
+    Ebk3Update->updateEbk3Head [label="method"];
+
+    
+    //GetChapterListArray
+    GetChapterListArray [color=red];
+    GetChapterListArray->infomodelarray [label="method"];
+
+
+    //GetData
+    GetData [color=red];
+    GetData->ebk_data [label="method"];
+    GetData->GetEbk3HeadData [label="method"];
+    GetData->GetPicdata [label="method"];
+    GetData->GetRecodeByte [label="method"];
+    GetData->OnlyChapter [label="method"];
+    GetData->GetPicByte [label="method"];
+    GetData->GetTextChapter [label="method"];
+    GetData->GetByte [label="method"];
+    GetData->ReturnBlockRecord [label="method"];
+    GetData->encodeingtext [label="method"];
+    GetData->decodeingtext [label="method"];
+
+
+    //GetEbk3HeadArray
+    GetEbk3HeadArray [color=red];
+    GetEbk3HeadArray->infomodelarray [label="method"];
+
+
+    //m_compressList
+    m_compressList->m_compressList [color=red];
+    m_compressList->_offset;
+    m_compressList->_lenth;
+    m_compressList->m_compressList [label="method"];
+
+
+    //Model
+    Model [color=red];
+    Model->record_type;
+    Model->record_length;
+
+
+    //Pic
+    Pic [color=red];
+    GetPicByte [label="method"];
+
+
+    //PicByteModel
+    PicByteModel [color=red];
+    PicByteModel->bytecover_img_type;
+    PicByteModel->bytecover_width;
+    PicByteModel->bytecover_height;
+    PicByteModel->bytecover_data_length;
+    PicByteModel->bytecover_data;
+
+    
+    //PicHeadModel
+    PicHeadModel [color=red];
+    PicHeadModel->cover_header_length;
+    PicHeadModel->cover_count;
+
+
+    //PicModel
+    PicModel [color=red];
+    PicModel->cover_img_type;
+    PicModel->cover_width;
+    PicModel->cover_height;
+    PicModel->cover_data_length;
+    PicModel->cover_data;
+}
+
+
