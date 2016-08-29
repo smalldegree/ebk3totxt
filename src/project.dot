@@ -1,6 +1,6 @@
 digraph project
 {
-    "ZhengquanTouziJichu.ebk3" [color=green, style=filled, fillcolor=".7 .3 1.0"]
+    "ZhengquanTouziJichu.ebk3" [color=green, style=filled, fillcolor=".7 .3 1.0"];
     "ZhengquanTouziJichu.ebk3"->ebk3totxt;
 
     ebk3totxt->"Zhangyue.iReader.EBK3.dll";
@@ -8,15 +8,29 @@ digraph project
     
     "Zhangyue.iReader.EBK3.dll"->"C#";
     "ILSpyChinese2.1.0.1603.rar"->"C#";
+    "ILSpyChinese2.1.0.1603.rar"->"Zhangyue.iReader.EBK3.png";
 
-    "C#" [color=green, style=filled, fillcolor="orange"]
+    "C#" [color=green, style=filled, fillcolor="orange"];
     "C#"->"origin_C#.code";
     "C#"->"origin_structure.dot(png)";
+
+    "Zhangyue.iReader.EBK3.png" [color=green, style=filled, fillcolor="orange"];
+    "Zhangyue.iReader.EBK3.png"->"new_strcuture.dot(png)";
 
     "origin_C#.code"->"new_strcuture.dot(png)";
     "origin_structure.dot(png)"->"new_strcuture.dot(png)";
 
-    "new_strcuture.dot(png)"->"convert.php";
+    "new_strcuture.dot(png)"->"new_implementation";
+    new_implementation [shape=box];
+    new_implementation->"ebk3totxt.php";
+    new_implementation->"ebk3totxt.c";
+    new_implementation->"ebk3totxt.cpp";
+    new_implementation->"ebk3totxt.py";
+    new_implementation->"ebk3totxt.rb";
     
-    "convert.php" [color=yellow, style=filled, fillcolor="green"];
+    "ebk3totxt.php" [color=yellow, style=filled, fillcolor="green"];
+    "ebk3totxt.c" [color=blue, style=dashed];
+    "ebk3totxt.cpp" [color=blue, style=dashed];
+    "ebk3totxt.py" [color=blue, style=dashed];
+    "ebk3totxt.rb" [color=blue, style=dashed];
 }
