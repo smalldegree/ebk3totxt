@@ -7,10 +7,10 @@ This tool can convert format ebk3 to txt for universal ebk3 e-books.
 
 
 # usage
-This is a php project, so you must deploy php environment first, then place this project to the php environment.
+Now, this project is going to implemented with php language, so you must deploy php environment first, then place this project to the php environment.
 
 
-# files description:
+# files description
 * ebk3totxt.c  
     --implementation with c language.  
 
